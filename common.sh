@@ -66,6 +66,7 @@ Code_dependencies(){
 	unzip /tmp/$app_name.zip &>> $LOG_FILE
 	Validate $? "moving to app directory and unziping it"
 
+	cd ..
 	cp $app_name.service /etc/systemd/system/$app_name.service
 	Validate $? "Copying $app_name service"
 }
