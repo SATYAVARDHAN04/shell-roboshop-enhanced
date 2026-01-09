@@ -94,5 +94,14 @@ maven_installation(){
 	Validate $? "Moving to jar file"
 }
 
+python_installation(){
+	dnf install python3 gcc python3-devel -y &>> $LOG_FILE
+Validate $? "Installing python module"
+
+cd /app 
+pip3 install -r requirements.txt &>> $LOG_FILE
+Validate $? "Installing the required Dependencies"
+
+}
 
 
