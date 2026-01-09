@@ -17,9 +17,6 @@ check_root
 
 read -s -p "Enter the rabbitmq password: " RABBITMQ_PASSWORD
 
-dnf install maven -y &>> $LOG_FILE
-Validate $? "Installing maven module"
-
 cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 Validate $? "Copying rabbitmq repository"
 
