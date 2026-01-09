@@ -38,6 +38,9 @@ Node_js_installation(){
 
 	dnf install nodejs -y &>> $LOG_FILE
 	Validate $? "Installing Node js module"
+
+	npm install &>> $LOG_FILE
+	Validate $? "Installing the required Dependencies"
 }
 
 Create_user(){
@@ -63,10 +66,6 @@ Code_dependencies(){
 	unzip /tmp/$app_name.zip &>> $LOG_FILE
 	Validate $? "moving to app directory and unziping it"
 
-	cd /app 
-	npm install &>> $LOG_FILE
-	Validate $? "Installing the required Dependencies"
-
 	cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
 	Validate $? "Copying $app_name service"
 }
@@ -82,5 +81,7 @@ Systemctl_commands(){
 	Validate $? "$app_name server started" 
 
 }
+
+
 
 

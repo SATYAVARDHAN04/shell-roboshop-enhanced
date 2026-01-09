@@ -14,7 +14,7 @@ app_name=user
 
 source ./common.sh
 check_root
+Code_dependencies
 Node_js_installation
 Create_user
-Code_dependencies
 Systemctl_commands
