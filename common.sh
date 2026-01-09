@@ -67,7 +67,7 @@ Code_dependencies(){
 	Validate $? "moving to app directory and unziping it"
 
 	cd ..
-	cp $app_name.service /etc/systemd/system/$app_name.service
+	cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
 	Validate $? "Copying $app_name service"
 }
 
