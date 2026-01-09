@@ -29,4 +29,58 @@ Validate() {
 	fi
 }
 
+Node_js_installation(){
+	dnf module disable nodejs -y &>> $LOG_FILE
+	Validate $? "Disabiling Nodejs"
+
+	dnf module enable nodejs:20 -y &>> $LOG_FILE
+	Validate $? "Enabling Node js module"
+
+	dnf install nodejs -y &>> $LOG_FILE
+	Validate $? "Installing Node js module"
+}
+
+Create_user(){
+	id roboshop &>> $LOG_FILE
+	if [ $? -ne 0 ]
+	then
+		useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+		Validate $? "Creating roboshop system user"
+	else
+		echo "roboshop user already created"
+	fi
+}
+
+Code_dependencies(){
+	mkdir -p /app 
+	Validate $? "Creating app directory"
+
+	curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip &>> $LOG_FILE
+	Validate $? "$app_name code downloading"
+
+	cd /app 
+	rm -rf /app/*
+	unzip /tmp/$app_name.zip &>> $LOG_FILE
+	Validate $? "moving to app directory and unziping it"
+
+	cd /app 
+	npm install &>> $LOG_FILE
+	Validate $? "Installing the required Dependencies"
+
+	cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
+	Validate $? "Copying $app_name service"
+}
+
+Systemctl_commands(){
+	systemctl daemon-reload &>> $LOG_FILE
+	Validate $? "Realoding $app_name service"
+
+	systemctl enable $app_name &>> $LOG_FILE
+	Validate $? "$app_name enabled"
+
+	systemctl start $app_name &>> $LOG_FILE
+	Validate $? "$app_name server started" 
+
+}
+
 
