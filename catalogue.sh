@@ -10,6 +10,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 SCRIPT_DIR=$PWD
 
 mkdir -p ${LOGS_FOLDER}
+app_name=catalogue
 
 source ./common.sh
 check_root
