@@ -14,7 +14,6 @@ app_name=redis
 
 source ./common.sh
 check_root
-Validate
 
 dnf module disable redis -y &>> $LOG_FILE
 Validate $? "Disabiling Redis"

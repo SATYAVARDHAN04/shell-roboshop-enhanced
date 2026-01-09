@@ -14,7 +14,6 @@ app_name=mysql
 
 source ./common.sh
 check_root
-Validate
 
 read -s -p "Enter the mysql root password: " mysqlpasswd
 

@@ -14,7 +14,6 @@ app_name=user
 
 source ./common.sh
 check_root
-Validate
 Node_js_installation
 Create_user
 Code_dependencies
