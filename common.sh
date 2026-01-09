@@ -6,6 +6,7 @@ reset="\e[0m"
 LOGS_FOLDER="/var/logs/roboshop-log"
 SCRIPT_NAME=$(echo $0|cut -d "." -f1)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
+SCRIPT_DIR=$PWD
 
 mkdir -p ${LOGS_FOLDER}
 
@@ -66,7 +67,6 @@ Code_dependencies(){
 	unzip /tmp/$app_name.zip &>> $LOG_FILE
 	Validate $? "moving to app directory and unziping it"
 
-	cd ..
 	cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
 	Validate $? "Copying $app_name service"
 }
