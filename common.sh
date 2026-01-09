@@ -1,7 +1,7 @@
 #! /bin/bash
 USERID=$(id -u)
 red="\e[31m"
-green="\e[32m"
+green="\e[32m" 
 reset="\e[0m"
 LOGS_FOLDER="/var/logs/roboshop-log"
 SCRIPT_NAME=$(echo $0|cut -d "." -f1)
@@ -66,7 +66,7 @@ Code_dependencies(){
 	unzip /tmp/$app_name.zip &>> $LOG_FILE
 	Validate $? "moving to app directory and unziping it"
 
-	cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
+	cp $app_name.service /etc/systemd/system/$app_name.service
 	Validate $? "Copying $app_name service"
 }
 
