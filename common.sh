@@ -82,6 +82,17 @@ Systemctl_commands(){
 
 }
 
+maven_installation(){
+	dnf install maven -y &>> $LOG_FILE
+	Validate $? "Installing maven module"
+
+	cd /app 
+	mvn clean package &>> $LOG_FILE
+	Validate $? "Installing the required Dependencies"
+
+	mv target/shipping-1.0.jar shipping.jar &>> $LOG_FILE
+	Validate $? "Moving to jar file"
+}
 
 
 

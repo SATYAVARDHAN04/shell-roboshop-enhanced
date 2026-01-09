@@ -15,41 +15,11 @@ app_name=shipping
 source ./common.sh
 check_root
 Create_user
-
-dnf install maven -y &>> $LOG_FILE
-Validate $? "Installing maven module"
+Code_dependencies
+maven_installation
+Systemctl_commands
 
 read -s -p "Enter the mysql root password: " mysqlpasswd
-
-mkdir -p /app 
-Validate $? "Creating app directory"
-
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip  &>> $LOG_FILE
-Validate $? "Shipping code downloading"
-
-cd /app 
-rm -rf /app/*
-unzip /tmp/shipping.zip &>> $LOG_FILE
-Validate $? "moving to app directory and unziping it"
-
-cd /app 
-mvn clean package &>> $LOG_FILE
-Validate $? "Installing the required Dependencies"
-
-mv target/shipping-1.0.jar shipping.jar &>> $LOG_FILE
-Validate $? "Moving to jar file"
-
-cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
-Validate $? "Copying shipping service"
-
-systemctl daemon-reload &>> $LOG_FILE
-Validate $? "Realoding shipping service"
-
-systemctl enable shipping &>> $LOG_FILE
-Validate $? "shipping enabled"
-
-systemctl start shipping &>> $LOG_FILE
-Validate $? "shipping server started" 
 
 dnf install mysql -y &>> $LOG_FILE
 Validate $? "Installing Mysql client"
